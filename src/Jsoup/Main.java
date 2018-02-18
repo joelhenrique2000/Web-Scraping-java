@@ -15,7 +15,7 @@ public class Main {
 
 		try {
 
-			documentHTML = Jsoup.connect("http://unionmangas.cc/manga/fairy-tail").get();
+			documentHTML = Jsoup.connect("http://unionmangas.cc/manga/one-piece").get();
 			
 			System.out.println("Titulo: " + getTitulo());
 			System.out.println("Genero: " + getGenero());
@@ -69,7 +69,15 @@ public class Main {
 	public static void capitulos() {
 		Elements elements = documentHTML.select("div.col-md-8.tamanho-bloco-perfil div.lancamento-linha");
 		for(Element element : elements) {
-			System.out.println(element.text());
+			System.out.println(element.select("div.col-xs-6.col-md-6 a").eq(0).text());
+			
+			Elements as = element.select("div.col-xs-6.col-md-6").eq(0);
+			for(Element asd : as) {
+				System.out.println(asd.select("a").attr("href"));
+			}
+			
+			System.out.println();
+			
 		}
 	}
 	
