@@ -6,7 +6,7 @@ public class Manga {
 	private String titulo;
 	private String genero;
 	private String descricao;
-	private static List<Capitulo> capitulos;
+	private List<Capitulo> capitulos;
 	
 	public Manga() {
 		
@@ -43,12 +43,12 @@ public class Manga {
 		this.descricao = descricao;
 	}
 
-	public static List<Capitulo> getCapitulos() {
+	public List<Capitulo> getCapitulos() {
 		return capitulos;
 	}
 
-	public static void setCapitulos(List<Capitulo> capitulos) {
-		Manga.capitulos = capitulos;
+	public void setCapitulos(List<Capitulo> capitulos) {
+		this.capitulos = capitulos;
 	}
 
 }

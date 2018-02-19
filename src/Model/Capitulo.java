@@ -11,6 +11,9 @@ public class Capitulo {
 		this.link = link;
 	}
 
+	public Capitulo() {
+	}
+
 	public String getNome() {
 		return nome;
 	}
