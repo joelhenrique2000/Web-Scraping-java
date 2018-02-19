@@ -19,7 +19,7 @@ public class SalvarCapitulo {
 	public void salvar(Capitulo capitulo) {
 		Document documentHTML;int i =0;
 		try {
-			documentHTML = Jsoup.connect("http://unionmangas.cc/leitor/Fairy_Tail/01").userAgent("Mozilla").timeout(0).get();
+			documentHTML = Jsoup.connect(capitulo.getLink()).userAgent("Mozilla").timeout(0).get();
 			
 			Elements elem = documentHTML.select("div.row").eq(0);
 			

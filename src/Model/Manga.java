@@ -18,6 +18,14 @@ public class Manga {
 		this.genero = genero;
 		this.descricao = descricao;
 	}
+	
+	public Manga(String titulo, String genero, String descricao, List<Capitulo> capitulos) {
+		super();
+		this.titulo = titulo;
+		this.genero = genero;
+		this.descricao = descricao;
+		this.capitulos = capitulos;
+	}
 
 	public String getTitulo() {
 		return titulo;

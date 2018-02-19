@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 
 import Model.Capitulo;
 import Model.Manga;
+import WebScraping.unionmangas.PaginaCapitulo;
+import WebScraping.unionmangas.PaginaManga;
 
 public class Main {
 	
@@ -22,18 +24,18 @@ public class Main {
 
 			documentHTML = Jsoup.connect("http://unionmangas.cc/manga/one-piece").userAgent("Mozilla").timeout(0).get();
 			
-			Manga manga = new Manga();
-			List<Capitulo> caps = capitulos();
+			PaginaManga paginaManga = new PaginaManga();
+			PaginaCapitulo paginaCapitulo = new PaginaCapitulo();
+
+			Manga manga = new Manga(paginaManga.getTitulo(), paginaManga.getGenero(), paginaManga.getDescricao(), paginaManga.getCapitulos());
+
+			System.out.printf("+-------------------------------------+\n"
+					+ "Nome do manga: %s\n"
+					+ "Generos do manga: %s\n"
+					+ "Descricao do manga: %s\n"
+					+ "+-------------------------------------+\n",
+					manga.getTitulo(),manga.getGenero(),manga.getDescricao());
 			
-			manga.setDescricao(getDescricao());
-			manga.setTitulo(getTitulo());
-			manga.setGenero(getGenero());
-			manga.setCapitulos(caps);
-
-			System.out.println("Titulo: " + manga.getTitulo());
-			System.out.println("Genero: " + manga.getGenero());
-			System.out.println("Descrição: " + manga.getDescricao());
-
 			System.out.println();
 			
 			for(Capitulo cap : manga.getCapitulos()) {
@@ -48,57 +50,4 @@ public class Main {
 		}
 		
 	}
-	
-	public static void salvarImg(Capitulo cap) throws IOException {
-
-	}
-	
-	public static String getTitulo() {
-        return documentHTML.select("div.col-md-8.tamanho-bloco-perfil div.row").eq(0).text();
-	}
-	
-	public static String getGenero() {
-		Elements elements = documentHTML.select("div.col-md-8.tamanho-bloco-perfil div.row").eq(2);
-		for(Element element : elements) {
-			return element.select("div").eq(4).select("a").text();
-		}
-		
-		return "desconhecido";
-	}
-	
-	public static String getDescricao() {
-		Elements elements = documentHTML.select("div.col-md-8.tamanho-bloco-perfil div.row").eq(2);
-		for(Element element : elements) {
-			return element.select("div").eq(9).text();
-		}
-		return null;
-
-	}
-	
-	public static List<Capitulo> capitulos() {
-		Elements elements = documentHTML.select("div.col-md-8.tamanho-bloco-perfil div.lancamento-linha");
-		ArrayList<Capitulo> capitulos = new ArrayList<Capitulo>();
-		
-		for(Element element : elements) {
-			
-			Capitulo capitulo = new Capitulo();
-			
-			String nome = element.select("div.col-xs-6.col-md-6 a").eq(0).text();
-			
-			capitulo.setNome(nome);
-			
-			Elements capituloHTML = element.select("div.col-xs-6.col-md-6").eq(0);
-			for(Element linkCap : capituloHTML) {
-				
-				String link = linkCap.select("a").attr("href");
-				
-				capitulo.setLink(link);
-			}
-			
-			capitulos.add(capitulo);
-		}
-		
-		return capitulos;
-	}
-	
 }
