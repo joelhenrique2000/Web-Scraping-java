@@ -11,12 +11,12 @@ import org.jsoup.select.Elements;
 
 import Model.Capitulo;
 
-public class PaginaManga {
+public class PaginaMangas {
 	
 	private static Document documentHTML;
 	
-	public PaginaManga() throws IOException {
-		documentHTML = Jsoup.connect("http://unionmangas.cc/manga/one-piece").userAgent("Mozilla").timeout(0).get();
+	public PaginaMangas(String site) throws IOException {
+		documentHTML = Jsoup.connect(site).userAgent("Mozilla").timeout(0).get();
 	}
 	
 	
